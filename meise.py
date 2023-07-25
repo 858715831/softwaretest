@@ -6,6 +6,7 @@ from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.edge.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.microsoft import EdgeChromiumDriverManager
@@ -25,7 +26,9 @@ def an(s,num):
     if num==-1:return
     driver.find_elements_by_link_text(s)[num].click()
     sleep()
-
+def ax(src):
+    driver.find_element_by_xpath(src).click()
+    sleep()
 # def auto():
 #     # 执行测试用例
 #     for test_case in test_cases:
@@ -119,7 +122,7 @@ def women():
     back = driver.find_element_by_link_text("返回首页")
     back.click()
 
-def ziyuan():
+def ziyuan(nong):
     # 获取页面文本
     page_text = driver.page_source
     # 使用正则表达式匹配农田、林场、石矿、铁矿 6→7级 和 (0:13:36)
@@ -142,12 +145,19 @@ def ziyuan():
             # 分析页面内容并找到等级最小的序号
             page_content = page_content.replace("20级", "")
             lines = re.findall(r"<img.+?>(.+?)\s(\d+)级", page_content)
+            # 使用JavaScript获取页面的文字内容
+            text = driver.execute_script("return document.body.innerText")
+            # 统计关键词出现次数
+            keyword = "农田"
+            count = text.count(keyword)
 
             # 初始化最小等级和序号
             min_level = float("inf")
             min_index = -1
 
             for i, line in enumerate(lines):
+                if nong:
+                    if i < count:continue
                 level = int(line[1])  # 将提取到的等级转换为整数
 
                 if level < min_level:
@@ -207,7 +217,46 @@ def gonzi():
     a("确定")
     a("返回")
     a("返回")
-    a("返回首页")
+    a("讲武堂")
+    ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[4]")
+    a("任务")
+    a("琉球诛魔")
+    try:
+        a("领取奖励")
+        a("返回")
+
+    except:
+        print("没有奖励")
+    a("报名琉球诛魔（13:00:00-第二天12:30:00）")
+    try:
+        an("选将",0)
+        ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[2]")
+        an("选择",0)
+        a("返回")
+        a("报名")
+        a("鼓舞士气")
+        a("确定")
+    except:
+        print("琉球诛魔报过名了")
+    a("任务")
+    a("占星卜运")
+    try:
+        a("占卜1次")
+        a("星运背包")
+        a("绿色")
+        a("绿色星运全部炼化灵力")
+        a("确定")
+    except:
+        print("没有绿色")
+    a("任务")
+    a("首页")
+    a("联盟")
+    a("联盟活动")
+    try:
+        an("点亮",0)
+    except:
+        print("点亮过了")
+    a("首页")
 
 def xuanjiang(username,city):
     a("武将")
@@ -231,13 +280,13 @@ def xuanfei(username,city):
     if match:
         print(f"${username} 的{city}有好美女")
     a("返回首页")
-def do(username,city):
-    # women()
-    ziyuan()
-    jianzhu()
 
-    # xuanjiang(username, city)
-    # xuanfei(username,city)
+def do(username,city):
+    women()
+    ziyuan(True)
+    jianzhu()
+    xuanjiang(username, city)
+    xuanfei(username,city)
 
 def checkoutCity(username):
     userCity={
@@ -252,7 +301,6 @@ def checkoutCity(username):
               '打客 服F':["阿呆吖"][::-1],
               '宇文紫山':["三上悠亚","新的城市"][::-1],
               '沈孤丝':["新的城市"][::-1]
-
               }
 
     user = driver.find_element_by_link_text(username)
@@ -289,14 +337,15 @@ def login():
 def checkoutUser(func):
     users=[
         # '尊',
-        # '禹白晴','袁腾飞','呼延谷丝',
+        # '禹白晴',
+        '袁腾飞','呼延谷丝',
         '柴文石','神','东方求败','魔',
         '打客 服F',
         '宇文紫山']
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        # gonzi()
+        gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()
@@ -305,17 +354,15 @@ def checkoutUser(func):
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        # gonzi()
+        gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()
 
 
 if __name__ == '__main__':
-
     driver = webdriver.Edge(EdgeChromiumDriverManager().install())
     driver.get("http://haixing8.cn/commreg/channel.php?d=login.start&clienttype=WAP2")  # 替换为你要测试的Web应用的URL
 
     login()
     checkoutUser(checkoutCity)
-    # checkout(username,women)
