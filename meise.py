@@ -117,7 +117,7 @@ def women():
                 time.sleep(3)
                 back.click()
     except NoSuchElementException:
-        print("没有第二页")
+        pass
 
     back = driver.find_element_by_link_text("返回首页")
     back.click()
@@ -226,7 +226,7 @@ def gonzi():
         a("返回")
 
     except:
-        print("没有奖励")
+        pass
     a("报名琉球诛魔（13:00:00-第二天12:30:00）")
     try:
         an("选将",0)
@@ -237,7 +237,7 @@ def gonzi():
         a("鼓舞士气")
         a("确定")
     except:
-        print("琉球诛魔报过名了")
+        pass
     a("任务")
     a("占星卜运")
     try:
@@ -247,15 +247,15 @@ def gonzi():
         a("绿色星运全部炼化灵力")
         a("确定")
     except:
-        print("没有绿色")
+        pass
     a("任务")
     a("首页")
     a("联盟")
-    a("联盟活动")
     try:
+        a("联盟活动")
         an("点亮",0)
     except:
-        print("点亮过了")
+        pass
     a("首页")
 
 def xuanjiang(username,city):
