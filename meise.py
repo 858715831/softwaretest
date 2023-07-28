@@ -217,18 +217,23 @@ def gonzi():
     a("确定")
     a("返回")
     a("返回")
-    a("讲武堂")
-    ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[4]")
-    a("任务")
-    a("琉球诛魔")
     try:
+        a("讲武堂")
+        ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[4]")
+    except:
+        pass
+
+    a("任务")
+    try:
+        a("琉球诛魔")
         a("领取奖励")
         a("返回")
 
     except:
         pass
-    a("报名琉球诛魔（13:00:00-第二天12:30:00）")
+    a("任务")
     try:
+        a("报名琉球诛魔（13:00:00-第二天12:30:00）")
         an("选将",0)
         ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[2]")
         an("选择",0)
@@ -239,8 +244,8 @@ def gonzi():
     except:
         pass
     a("任务")
-    a("占星卜运")
     try:
+        a("占星卜运")
         a("占卜1次")
         a("星运背包")
         a("绿色")
@@ -250,8 +255,8 @@ def gonzi():
         pass
     a("任务")
     a("首页")
-    a("联盟")
     try:
+        a("联盟")
         a("联盟活动")
         an("点亮",0)
     except:
@@ -282,17 +287,17 @@ def xuanfei(username,city):
     a("返回首页")
 
 def do(username,city):
-    women()
+    # women()
     ziyuan(True)
     jianzhu()
-    xuanjiang(username, city)
-    xuanfei(username,city)
+    # xuanjiang(username, city)
+    # xuanfei(username,city)
 
 def checkoutCity(username):
     userCity={
         "尊":["饕餮","睚眦","嘲风", "蒲牢", "狻猊", "霸下", "狴犴", "负屃", "螭吻", "囚牛","穷奇"][::-1],
               '禹白晴':["龟攻我","新的城市"][::-1],
-              '袁腾飞':["佩琪打我","新的城市"][::-1],
+              '袁腾飞':["佩琪打我","烽火江山","新的城市"][::-1],
               '呼延谷丝':["华为","新的城市"][::-1],
               '柴文石':["鳖答我","新的城市"][::-1],
               '神':["打我死妈","新的城市"][::-1],
@@ -336,8 +341,8 @@ def login():
 
 def checkoutUser(func):
     users=[
-        # '尊',
-        # '禹白晴',
+        '尊',
+        '禹白晴',
         '袁腾飞','呼延谷丝',
         '柴文石','神','东方求败','魔',
         '打客 服F',
@@ -345,7 +350,7 @@ def checkoutUser(func):
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        gonzi()
+        # gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()
@@ -354,7 +359,7 @@ def checkoutUser(func):
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        gonzi()
+        # gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()

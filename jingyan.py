@@ -126,7 +126,7 @@ if __name__ == '__main__':
         pattern = r'(高产县粮)'
         match = re.search(pattern, page_text)
         if match:
-            an("放弃",3)
+            an("放弃",2)
             a("确定")
 
         a("返回首页")
@@ -136,7 +136,7 @@ if __name__ == '__main__':
         # 找到第一个输入框元素并修改其值为9000
         input_element = driver.find_element_by_name("s_4")
         input_element.clear()
-        input_element.send_keys("9000")
+        input_element.send_keys("8000")
         value = "出兵"
         xpath_expression = f'//input[@type="submit" and @value="{value}"]'
         submit_button = driver.find_element_by_xpath(xpath_expression)
