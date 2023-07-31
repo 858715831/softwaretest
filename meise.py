@@ -18,7 +18,7 @@ def clear_input_field(element):
     element.clear()
 
 def sleep():
-    time.sleep(1)
+    time.sleep(0.5)
 def a(s):
     driver.find_element_by_link_text(s).click()
     sleep()
@@ -233,6 +233,7 @@ def gonzi():
         pass
     a("任务")
     try:
+        a("琉球诛魔")
         a("报名琉球诛魔（13:00:00-第二天12:30:00）")
         an("选将",0)
         ax("/html/body/div/div/div/div/div/div/div/div/div/div/p[1]/a[2]")
@@ -287,11 +288,11 @@ def xuanfei(username,city):
     a("返回首页")
 
 def do(username,city):
-    # women()
+    women()
     ziyuan(True)
     jianzhu()
-    # xuanjiang(username, city)
-    # xuanfei(username,city)
+    xuanjiang(username, city)
+    xuanfei(username,city)
 
 def checkoutCity(username):
     userCity={
@@ -350,7 +351,7 @@ def checkoutUser(func):
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        # gonzi()
+        gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()
@@ -359,7 +360,7 @@ def checkoutUser(func):
     for username in users:
         user = driver.find_element_by_link_text(username)
         user.click()
-        # gonzi()
+        gonzi()
         func(username)
         driver.find_element_by_link_text("系统").click()
         driver.find_element_by_link_text("切换人物").click()
