@@ -115,7 +115,8 @@ if __name__ == '__main__':
     # checkoutUser(checkoutCity)
     a("尊")
     a("尊")
-    a("霸下")
+    a("蒲牢")
+    # a("霸下")
     while True:
 
         a("建筑")
@@ -123,20 +124,22 @@ if __name__ == '__main__':
         # a("")
         page_text = driver.page_source
         # 使用正则表达式匹配农田、林场、石矿、铁矿 6→7级 和 (0:13:36)
-        pattern = r'(高产县粮)'
+        # pattern = r'(高产县粮)'
+        pattern = r'(中产县粮木)'
+
         match = re.search(pattern, page_text)
         if match:
-            an("放弃",2)
+            an("放弃",4)
             a("确定")
 
         a("返回首页")
         a("地图")
-        a("高产县粮")
+        a("中产县粮木")
         a("出兵")
         # 找到第一个输入框元素并修改其值为9000
         input_element = driver.find_element_by_name("s_4")
         input_element.clear()
-        input_element.send_keys("8000")
+        input_element.send_keys("15000")
         value = "出兵"
         xpath_expression = f'//input[@type="submit" and @value="{value}"]'
         submit_button = driver.find_element_by_xpath(xpath_expression)
