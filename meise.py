@@ -149,6 +149,7 @@ def build():
 # 每日任务
 def daily():
     a("任务")
+    a("活动")
     a("领取日薪俸")
     a("返回")
     a("领取周薪俸")
@@ -266,11 +267,12 @@ def beauty(username,city):
     a("返回首页")
 
 def do(username,city,control):
-    if control.get("meet"):beauty()
-    if control.get("resources"):resources(True)
-    if control.get("build"):build()
     if control.get("general"): general(username, city)
     if control.get("beauty"): beauty(username,city)
+    if control.get("meet"):meet()
+    if control.get("resources"):resources(True)
+    if control.get("build"):build()
+
 
 def checkoutCity(username,control):
     userCity={
@@ -355,4 +357,4 @@ if __name__ == '__main__':
         'daily':False,
     }
 
-    checkoutUser(checkoutCity,control2)
+    checkoutUser(checkoutCity,control1)
